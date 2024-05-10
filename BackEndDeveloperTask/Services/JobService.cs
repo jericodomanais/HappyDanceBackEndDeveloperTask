@@ -23,8 +23,8 @@ namespace BackEndDeveloperTask.Services
 
             if (response.IsSuccessStatusCode)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                var jobs = JsonSerializer.Deserialize<JobResult>(json)?.Jobs?.OrderByDescending(x => x.Date)?.ToList() ?? [];
+                var jobResult = await response.Content.ReadFromJsonAsync<JobResult>();
+                var jobs = jobResult?.Jobs?.OrderByDescending(x => x.Date)?.ToList() ?? [];
 
                 if (max.HasValue)
                 {
